@@ -173,6 +173,7 @@ std::string t_weapons[] =
 	"",
 	"Grenade",
 	"Flash",
+	"Smok",
 	"Beretta",
 	"Glok-18",
 	"SPAS-12",
@@ -223,9 +224,9 @@ void main()
 	{
 		human[i] = humanFactory(HumanType(rand() % 3));
 		human[i]->info();
-		if (typeid(*human[i]) == typeid(Traveller))traveller_count++;
-		if (typeid(*human[i]) == typeid(PoliceOfficer))police_officer_count++;
-		if (typeid(*human[i]) == typeid(Bandit))bandit_count++;
+		if (typeid(*human[i]) == typeid(class Traveller))traveller_count++;
+		if (typeid(*human[i]) == typeid(class PoliceOfficer))police_officer_count++;
+		if (typeid(*human[i]) == typeid(class Bandit))bandit_count++;
 	}
 	cout << "Travellers: " << traveller_count << endl;
 	cout << "PoliceOfficer: " << police_officer_count << endl;
@@ -259,9 +260,9 @@ void main()
 	{
 		transport[i] = TransportFactory(TransportType(rand() % 3));
 		transport[i]->info();
-		if (typeid(*transport[i]) == typeid(TravellerTransport))traveller_transport_count++;
-		if (typeid(*transport[i]) == typeid(PoliceOfficerTransport))police_officer_transport_count++;
-		if (typeid(*transport[i]) == typeid(BanditTransport))bandit_transport_count++;
+		if (typeid(*transport[i]) == typeid(class TravellerTransport))traveller_transport_count++;
+		if (typeid(*transport[i]) == typeid(class PoliceOfficerTransport))police_officer_transport_count++;
+		if (typeid(*transport[i]) == typeid(class BanditTransport))bandit_transport_count++;
 	}
 	cout << "TravellersTransport: " << traveller_transport_count << endl;
 	cout << "PoliceOfficerTransport: " << police_officer_transport_count << endl;
