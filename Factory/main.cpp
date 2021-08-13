@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<ctime>
+#include<map>
 using namespace std;
 
 class Human
@@ -71,33 +72,38 @@ public:
 		cout << "Weapon:" << weapon << endl;
 	}
 };
-enum HumanType
+class HumanFactory
 {
-	Traveller,
-	PoliceOfficer,
-	Bandit
-};
-std::string weapons[] =
-{
-	"",
-	"Knife",
-	"Beretta",
-	"Glok-18",
-	"SPAS-12",
-	"Ingram",
-	"M4A1",
-	"AK-47",
-};
-Human* humanFactory(HumanType human_type)
-{
-	switch (human_type)
+public:
+	enum HumanType
 	{
-	case Traveller:     return new class Traveller(100, rand() % 10 + 10, 0);
-	case PoliceOfficer: return new class PoliceOfficer(100, rand() % 10 + 20, 100, "Beretta");
-	case Bandit:
-		return new class Bandit(rand() % 50 + 50, rand() % 10 + 30, rand() % 20 + 80, weapons[rand() % (sizeof(weapons) / sizeof(std::string))]);
+		Traveller,
+		PoliceOfficer,
+		Bandit
+	};
+	static std::map<size_t, std::string> weapons;
+	static Human* humanFactory(HumanType human_type)
+	{
+		switch (human_type)
+		{
+		case Traveller:     return new class Traveller(100, rand() % 10 + 10, 0);
+		case PoliceOfficer: return new class PoliceOfficer(100, rand() % 10 + 20, 100, "Beretta");
+		case Bandit:
+			return new class Bandit(rand() % 50 + 50, rand() % 10 + 30, rand() % 20 + 80, weapons[rand() % (weapons.size())]);
+		}
 	}
-}
+};
+std::map<size_t, std::string> HumanFactory::weapons =
+{
+	std::pair<size_t, std::string>(0, ""),
+	std::pair<size_t, std::string>(0, "Knife"),
+	std::pair<size_t, std::string>(0, "Beretta"),
+	std::pair<size_t, std::string>(0, "Glok-18"),
+	std::pair<size_t, std::string>(0, "SPAS-12"),
+	std::pair<size_t, std::string>(0, "Ingram"),
+	std::pair<size_t, std::string>(0, "M4A1"),
+	std::pair<size_t, std::string>(0, "AK-47")
+};
 
 class Transport
 {
@@ -167,7 +173,6 @@ enum TransportType
 	PoliceOfficerTransport,
 	BanditTransport
 };
-
 std::string t_weapons[] =
 {
 	"",
@@ -179,24 +184,23 @@ std::string t_weapons[] =
 	"SPAS-12",
 	"Ingram",
 	"M4A1",
-	"AK-47",
+	"AK-47"
 };
-
 Transport* TransportFactory(TransportType Transport_type)
 {
 	switch (Transport_type)
 	{
-	case Traveller:     return new class TravellerTransport(300, rand() % 2+2);
-	case PoliceOfficer: return new class PoliceOfficerTransport(300, rand() % 4+4, "Beretta");
-	case Bandit:
+	case TravellerTransport:     return new class TravellerTransport(300, rand() % 2+2);
+	case PoliceOfficerTransport: return new class PoliceOfficerTransport(300, rand() % 4+4, "Beretta");
+	case BanditTransport:
 		return new class BanditTransport(rand() % 150 + 150, rand() % 4+2, t_weapons[rand() % (sizeof(t_weapons) / sizeof(std::string))]);
 	}
 }
 
 //#define FACTORY_CHECK_1
 //#define FACTORY_CHECK_2
-#define FACTORY_HUMAN
 //#define FACTORY_TRANSPORT
+#define FACTORY_HUMAN
 
 void main()
 {
@@ -214,7 +218,7 @@ void main()
 #endif // FACTORY_CHECK_1
 	
 #ifdef FACTORY_HUMAN
-	cout << sizeof(HumanType) << endl;
+	//cout << sizeof(HumanType) << endl;
 	const int n = 10;
 	Human* human[n]{};
 	unsigned int traveller_count = 0;
@@ -222,7 +226,7 @@ void main()
 	unsigned int bandit_count = 0;
 	for (int i = 0; i < n; i++)
 	{
-		human[i] = humanFactory(HumanType(rand() % 3));
+		human[i] = HumanFactory::humanFactory(HumanFactory::HumanType(rand() % 3));
 		human[i]->info();
 		if (typeid(*human[i]) == typeid(class Traveller))traveller_count++;
 		if (typeid(*human[i]) == typeid(class PoliceOfficer))police_officer_count++;
@@ -235,7 +239,6 @@ void main()
 	{
 		delete human[i];
 	}
-
 #endif // FACTORY_HUMAN
 
 #ifdef FACTORY_CHECK_2
