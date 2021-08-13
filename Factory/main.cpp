@@ -71,14 +71,12 @@ public:
 		cout << "Weapon:" << weapon << endl;
 	}
 };
-
 enum HumanType
 {
 	Traveller,
 	PoliceOfficer,
 	Bandit
 };
-
 std::string weapons[] =
 {
 	"",
@@ -90,7 +88,6 @@ std::string weapons[] =
 	"M4A1",
 	"AK-47",
 };
-
 Human* humanFactory(HumanType human_type)
 {
 	switch (human_type)
@@ -128,10 +125,7 @@ class TravellerTransport : public Transport
 {
 public:
 	TravellerTransport(unsigned int endurance, unsigned int damage) :
-		Transport(endurance, damage)
-	{
-
-	}
+		Transport(endurance, damage){ }
 	~TravellerTransport() {}
 
 };
@@ -200,14 +194,13 @@ Transport* TransportFactory(TransportType Transport_type)
 
 //#define FACTORY_CHECK_1
 //#define FACTORY_CHECK_2
-//#define FACTORY_HUMAN
+#define FACTORY_HUMAN
+//#define FACTORY_TRANSPORT
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-
 	srand(time(NULL));
-
 #ifdef FACTORY_CHECK_1
 	Human* t = humanFactory(Traveller);
 	t->info();
@@ -241,6 +234,7 @@ void main()
 	{
 		delete human[i];
 	}
+
 #endif // FACTORY_HUMAN
 
 #ifdef FACTORY_CHECK_2
@@ -254,7 +248,7 @@ void main()
 	b_t->info();
 #endif // FACTORY_CHECK_2
 
-
+#ifdef FACTORY_TRANSPORT
 	cout << sizeof(TransportType) << endl;
 	const int n = 10;
 	Transport* transport[n]{};
@@ -276,4 +270,7 @@ void main()
 	{
 		delete transport[i];
 	}
+#endif // FACTORY_TRANSPORT
+
+
 }
