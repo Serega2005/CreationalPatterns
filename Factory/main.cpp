@@ -200,7 +200,7 @@ Transport* TransportFactory(TransportType Transport_type)
 //#define FACTORY_CHECK_1
 //#define FACTORY_CHECK_2
 //#define FACTORY_TRANSPORT
-#define FACTORY_HUMAN
+//#define FACTORY_HUMAN
 
 void main()
 {
@@ -216,7 +216,6 @@ void main()
 	Human* b = humanFactory(Bandit);
 	b->info();
 #endif // FACTORY_CHECK_1
-	
 #ifdef FACTORY_HUMAN
 	//cout << sizeof(HumanType) << endl;
 	const int n = 10;
@@ -240,7 +239,6 @@ void main()
 		delete human[i];
 	}
 #endif // FACTORY_HUMAN
-
 #ifdef FACTORY_CHECK_2
 	Transport* t_t = TransportFactory(TravellerTransport);
 	t_t->info();
@@ -251,7 +249,6 @@ void main()
 	Transport* b_t = TransportFactory(BanditTransport);
 	b_t->info();
 #endif // FACTORY_CHECK_2
-
 #ifdef FACTORY_TRANSPORT
 	cout << sizeof(TransportType) << endl;
 	const int n = 10;
@@ -275,6 +272,4 @@ void main()
 		delete transport[i];
 	}
 #endif // FACTORY_TRANSPORT
-
-
 }
