@@ -195,7 +195,7 @@ Transport* TransportFactory(TransportType Transport_type)
 
 //#define FACTORY_CHECK_1
 //#define FACTORY_CHECK_2
-#define FACTORY_HUMAN
+//#define FACTORY_HUMAN
 //#define FACTORY_TRANSPORT
 
 void main()
