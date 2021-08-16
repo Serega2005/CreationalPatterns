@@ -26,5 +26,4 @@ void main()
 	setlocale(LC_ALL, "Russian");
 	SportCar lamborghini(new SportCarFactory);
 	lamborghini.info();
-
 }
