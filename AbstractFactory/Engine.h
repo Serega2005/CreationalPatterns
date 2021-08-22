@@ -38,3 +38,14 @@ public:
 		return this->power;
 	}
 };
+
+class SUVEngine :public Engine
+{
+public:
+	SUVEngine() :Engine(250) {}
+	~SUVEngine() {}
+	unsigned int get_power()const
+	{
+		return this->power;
+	}
+};
